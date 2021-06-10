@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>JS-Pro1</title>
+
+  <style>
+    html {
+      font-family: sans-serif;
+    }
+
+    body {
+      width: 50%;
+      max-width: 800px;
+      min-width: 480px;
+      margin: 0 auto;
+    }
+
+  </style>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+  function computerChoice () {
+    let rng = Math.floor(Math.random() * 3) + 0;
+    let rps = ['rock', 'papper', 'scissor'];
+    let choice = rps[rng];
+    return choice;
+  };
+  
+  console.log(computerChoice());
+
+/*  function game (computerI, PlayerI) {
+
+  }*/
+
+</script>
+
+</html>
