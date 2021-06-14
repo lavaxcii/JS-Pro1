@@ -23,22 +23,37 @@
 
 <body>
 
+  <!--
+  <h1>Type rock, paper or scissor and see if you are better than super advanced AI from fifth dimension at the same game!</h1>
+  <p>Type your choice, human player</p>
+  <input id="playerInput" type="text" placeholder="R, P or S?">
+  <button onclick="playerChoice()">Choice is made and I want confirmation</button>
+  -->
 </body>
 
 <script>
 
   function computerChoice () {
     let rng = Math.floor(Math.random() * 3) + 0;
-    let rps = ['rock', 'papper', 'scissor'];
+    let rps = ['rock', 'paper', 'scissor'];
     let choice = rps[rng];
     return choice;
   };
-  
   console.log(computerChoice());
+  
+  function playerChoice (playerC) {
+    let rps = ['rock', 'paper', 'scissor'];
+    let choice = rps[playerC];
+    return choice;
+    /*let pInput = document.getElementById("playerInput").value;
+    alert(pInput);
+    return pInput;*/
+  };
+  console.log(playerChoice(2));
 
-/*  function game (computerI, PlayerI) {
+  function game (computerI, PlayerI) {
 
-  }*/
+  }
 
 </script>
 
