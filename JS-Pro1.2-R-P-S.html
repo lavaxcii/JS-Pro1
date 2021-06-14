@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>JS-Pro1</title>
+
+  <style>
+    html {
+      font-family: sans-serif;
+    }
+
+    body {
+      width: 50%;
+      max-width: 800px;
+      min-width: 480px;
+      margin: 0 auto;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!--
+  <h1>Type rock, paper or scissor and see if you are better than super advanced AI from fifth dimension at the same game!</h1>
+  <p>Type your choice, human player</p>
+  <input id="playerInput" type="text" placeholder="R, P or S?">
+  <button onclick="playerChoice()">Choice is made and I want confirmation</button>
+  -->
+</body>
+
+<script>
+
+  let PC = 0;
+  let NPC = 0;
+
+  function game(playerC) {
+
+    let rps = ['rock', 'paper', 'scissor'];
+    let choicePC = rps[playerC];
+    let rng = Math.floor(Math.random() * 3) + 0;
+    let choiceNPC = rps[rng];
+
+    if (choicePC === choiceNPC) {
+      console.log(`Player chose ${choicePC}`);
+      console.log(`Computer chose ${choiceNPC}`);
+      PC += 1;
+      NPC += 1;
+      console.log('DRAW!');
+      return console.log(`Player score is ${PC}, Computer score is ${NPC}.`);
+    } else if (choicePC === 'rock' && choiceNPC === 'paper') {
+      console.log(`Player chose ${choicePC}`);
+      console.log(`Computer chose ${choiceNPC}`);
+      NPC += 2;
+      console.log('Computer wins! Rock is weak against paper.');
+      return console.log(`Player score is ${PC}, Computer score is ${NPC}.`);
+    } else if (choicePC === 'rock' && choiceNPC === 'scissor') {
+      console.log(`Player chose ${choicePC}`);
+      console.log(`Computer chose ${choiceNPC}`);
+      PC += 2;
+      console.log('Player wins! Rock is strong against scissor.');
+      return console.log(`Player score is ${PC}, Computer score is ${NPC}.`);
+    } else if (choicePC === 'paper' && choiceNPC === 'rock') {
+      console.log(`Player chose ${choicePC}`);
+      console.log(`Computer chose ${choiceNPC}`);
+      PC += 2;
+      console.log('Player wins! Rock is weak against paper.');
+      return console.log(`Player score is ${PC}, Computer score is ${NPC}.`);
+    } else if (choicePC === 'paper' && choiceNPC === 'scissor') {
+      console.log(`Player chose ${choicePC}`);
+      console.log(`Computer chose ${choiceNPC}`);
+      NPC += 2;
+      console.log('Computer wins! Scissor is strong against paper.');
+      return console.log(`Player score is ${PC}, Computer score is ${NPC}.`);
+    } else if (choicePC === 'scissor' && choiceNPC === 'paper') {
+      console.log(`Player chose ${choicePC}`);
+      console.log(`Computer chose ${choiceNPC}`);
+      PC += 2;
+      console.log('Player wins! Scissor is strong against paper.');
+      return console.log(`Player score is ${PC}, Computer score is ${NPC}.`);
+    } else if (choicePC === 'scissor' && choiceNPC === 'rock') {
+      console.log(`Player chose ${choicePC}`);
+      console.log(`Computer chose ${choiceNPC}`);
+      NPC += 2;
+      console.log('Computer wins! Scissor is weak against rock.');
+      return console.log(`Player score is ${PC}, Computer score is ${NPC}.`);
+    }
+  };
+
+  for (let i = 0; i < 5; i++) {
+    game(0);
+    console.log(`--------------------------------------------`)
+    if (i === 4) {
+      if (PC > NPC) {
+        console.log(`Player WINS! (score: ${PC})`);
+      } else if (PC < NPC) {
+        console.log(`Computer WINS! (score: ${NPC})`);
+      } else {
+        console.log(`It's a DRAW! (score: ${NPC})`)
+      };
+    };
+  };
+
+</script>
+
+</html>
