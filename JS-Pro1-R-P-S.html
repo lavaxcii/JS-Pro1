@@ -33,14 +33,6 @@
 
 <script>
 
-  function computerChoice () {
-    let rng = Math.floor(Math.random() * 3) + 0;
-    let rps = ['rock', 'paper', 'scissor'];
-    let choice = rps[rng];
-    return choice;
-  };
-  console.log(computerChoice());
-  
   function playerChoice (playerC) {
     let rps = ['rock', 'paper', 'scissor'];
     let choice = rps[playerC];
@@ -49,11 +41,46 @@
     alert(pInput);
     return pInput;*/
   };
-  console.log(playerChoice(2));
 
-  function game (computerI, PlayerI) {
+  function computerChoice () {
+    let rng = Math.floor(Math.random() * 3) + 0;
+    let rps = ['rock', 'paper', 'scissor'];
+    let choice = rps[rng];
+    return choice;
+  };
 
-  }
+  function game (playerC, computerC) {
+    if (playerC === computerC) {
+      console.log(playerC);
+      console.log(computerC);
+      return console.log('DRAW!');
+    } else if (playerC === 'rock' && computerC === 'paper') {
+      console.log(playerC);
+      console.log(computerC);
+      return console.log('Computer wins! Rock is weak against paper.');
+    } else if (playerC === 'rock' && computerC === 'scissor') {
+      console.log(playerC);
+      console.log(computerC);
+      return console.log('Player wins! Rock is strong against scissor.');
+    } else if (playerC === 'paper' && computerC === 'rock') {
+      console.log(playerC);
+      console.log(computerC);
+      return console.log('Player wins! Rock is weak against paper.');
+    } else if (playerC === 'paper' && computerC === 'scissor') {
+      console.log(playerC);
+      console.log(computerC);
+      return console.log('Computer wins! Scissor is strong against paper.');
+    } else if (playerC === 'scissor' && computerC === 'paper') {
+      console.log(playerC);
+      console.log(computerC);
+      return console.log('Player wins! Scissor is strong against paper.');
+    } else if (playerC === 'scissor' && computerC === 'rock') {
+      console.log(playerC);
+      console.log(computerC);
+      return console.log('Computer wins! Scissor is weak against rock.');
+    };
+  };
+  console.log(game (playerChoice(0), computerChoice()));
 
 </script>
 
