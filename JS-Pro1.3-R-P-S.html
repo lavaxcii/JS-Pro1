@@ -89,13 +89,15 @@
         console.log('Computer wins! Scissor is weak against rock.');
         return console.log(`Player score is ${PC}, Computer score is ${NPC}.`);
       } else if (choicePC !== 'paper' || choicePC !== 'rock' || choicePC !== 'scissor') {
-        console.log(`Invalid option typed:%c ${choicePC}!%cTry again.`, `color: red`)
+        console.log(`Invalid option typed:%c ${choicePC}!%cTry again.`, `color: red`);
+        console.log(`--------------------------------------------`);
+        round(varPC(), varNPC());
       }
     };
 
     for (let i = 1; i <= numberOfRounds; i++) {
       round(varPC(), varNPC());
-      console.log(`--------------------------------------------`)
+      console.log(`--------------------------------------------`);
       if (i === numberOfRounds) {
         if (PC > NPC) {
           console.log(`Player WINS! (score: ${PC})`);
