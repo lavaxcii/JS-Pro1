@@ -81,5 +81,3 @@ function game(numberOfRounds) {
   };
 
 };
-
-game(5);
