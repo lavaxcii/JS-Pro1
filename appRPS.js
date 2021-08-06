@@ -1,3 +1,8 @@
+/**
+* ! REFACTOR (there is unnecessary repetition)
+* ! Put more steel in game logic
+*/
+
 const div1 = document.createElement('div');
 const div2 = document.createElement('div');
 const div3 = document.createElement('div');
@@ -49,13 +54,11 @@ const buttons = document.querySelectorAll('button');
 const buttonsToArray = Array.from(buttons);
 buttonsToArray.forEach((ofbtns) => {
   ofbtns.classList.add('button' + (buttonsToArray.indexOf(ofbtns) + 1));
-  // Ovdje dodaj ifove da dodati svakom buttonu klasu rock paper ili scissors radi logike igre
 });
 
 const button7text = document.querySelector('.button7');
 button7text.textContent = 'ENTER THE DUNGEON';
 
-//* OVAKO SE RIJEŠAVA PROBLEM DODAVANJA višestrukih NOVIH ELEMENATA NA NODOVE!! Bravo ja ^^
 buttonsToArray.forEach((ofbtns) => {
   const img = document.createElement('img');
   ofbtns.appendChild(img);
@@ -96,38 +99,21 @@ buttonsToArray.forEach((ofbtns) => {
     img.setAttribute('width', '90vw');
     img.setAttribute('height', '90vh');
   };
-
 });
 
 const middleResult = document.querySelector('.div3');
 const pResult = document.createElement('span');
 const cResult = document.createElement('span');
+const resultText = document.createElement('span');
 middleResult.appendChild(pResult);
+middleResult.appendChild(resultText);
 middleResult.appendChild(cResult);
 pResult.className = 'pResult';
+resultText.className = 'resultText';
 cResult.className = 'cResult';
-
-/* TODO:
-
-1. Prvo napraviti logiku igre
-  1.1. Dodati NPC options (easy)
-  1.2. Dodati PC options
-  1.3. Dodati rezultantu sučeljavanja opcija
-2. Kada se deklarira pobjednik runde to bi se trebalo objaviti na sredini ekrana (treba nam nekin span u sredini u kojem ćemo generirati tekst)
-3. Rezultat se treba pratiti u ona dva već postojeća spana koji su zamišljeni kao animirani barovi koji se pune! *.* (to ćemo zasada preskočiti - u nekoj sljedećoj verziji se pozabaviti time)
-4. Ideja je napraviti da kada player odabere izbor, da se onda iskoristi ona fora ili sa transform ili sa jednostavnim dodavanjem klase/a da bi se postigao efekt kako se ono plavo/crveno oko buttona kroz ease od par sekundi mjenja ka žutom
-5. Tu se eventualno na kraju toga (što bi moglo biti u timeoutu) može staviti da se odigra neki zvuk
-6. Ovo bi sve trebalo biti u nekom jednom kliku, preko eventListenera
-//* 7. Napravi intro screen
-8. Zvukovi!
-  //*8.1. Intro zvuk
-  8.2. Zvuk odabiranja
-  8.3. Zvuk konflikta izbora?
-  8.4. Zvuk kad izgubiš
-  8.5. Zvuk kad pobjediš
-  8.6. Zvuk konačnog rezultata
-
-*/
+const playerR = document.querySelector('.pResult');
+const rText = document.querySelector('.resultText');
+const computerR = document.querySelector('.cResult');
 
 const title = document.querySelector('h2');
 
@@ -148,3 +134,175 @@ button7Enter.addEventListener('click', () => {
   title.classList.add('fadeIn');
 });
 
+const buttonsWClasses = document.querySelectorAll('button');
+const button4c = document.querySelector('.button4');
+const button5c = document.querySelector('.button5');
+const button6c = document.querySelector('.button6');
+
+function match() {
+  let round = 0;
+  let playerScore = 0;
+  let computerScore = 0;
+  rText.textContent = `Match is about to begin.`;
+  playerR.textContent = 0;
+  computerR.textContent = 0;
+
+  function check() {
+    if (round === 5 && playerScore < computerScore) {
+      rText.textContent = `Glorius winner is COMPUTER!`;
+      return restart();
+    } else if (round === 5 && playerScore > computerScore) {
+      rText.textContent = `Glorious winner is PLAYER!`;
+      return restart();
+    } else if (round === 5 && playerScore === computerScore) {
+      rText.textContent = `There is no glory today... NO winners! (sadFace)`;
+      return restart();
+    };
+  };
+
+  function win() {
+    rText.textContent = `You win!`;
+    playerScore += 2;
+    playerR.textContent = playerScore;
+    computerScore += 0;
+    computerR.textContent = computerScore;
+    round += 1;
+  };
+
+  function draw() {
+    rText.textContent = `It is a draw`;
+    playerScore += 1;
+    playerR.textContent = playerScore;
+    computerScore += 1;
+    computerR.textContent = computerScore;
+    round += 1;
+  };
+
+  function lose() {
+    rText.textContent = `You lose!`;
+    playerScore += 0;
+    playerR.textContent = playerScore;
+    computerScore += 2;
+    computerR.textContent = computerScore;
+    round += 1;
+  };
+  
+  buttonsWClasses.forEach((ofbtns) => {
+    ofbtns.addEventListener('click', () => {
+      const choicesNPC = ['button4', 'button5', 'button6'];
+      const choiceNPC = choicesNPC[Math.floor(Math.random() * 3) + 0];
+
+      if (ofbtns.classList.contains('button1') && choiceNPC === 'button4') {
+        if (ofbtns.classList.contains('button1')) {
+          ofbtns.classList.add('highlight');
+          button4c.classList.add('highlight');
+          setTimeout(() => {
+            ofbtns.classList.remove('highlight');
+            button4c.classList.remove('highlight');
+          }, 1500);
+        };
+        draw();
+        check();
+      } else if (ofbtns.classList.contains('button1') && choiceNPC === 'button5') {
+        if (ofbtns.classList.contains('button1')) {
+          ofbtns.classList.add('highlight');
+          button5c.classList.add('highlight');
+          setTimeout(() => {
+            ofbtns.classList.remove('highlight');
+            button5c.classList.remove('highlight');
+          }, 1500);
+        };
+        lose();
+        check();
+      } else if (ofbtns.classList.contains('button1') && choiceNPC === 'button6') {
+        if (ofbtns.classList.contains('button1')) {
+          ofbtns.classList.add('highlight');
+          button6c.classList.add('highlight');
+          setTimeout(() => {
+            ofbtns.classList.remove('highlight');
+            button6c.classList.remove('highlight');
+          }, 1500);
+        };
+        win();
+        check();
+      } else if (ofbtns.classList.contains('button2') && choiceNPC === 'button4') {
+        if (ofbtns.classList.contains('button2')) {
+          ofbtns.classList.add('highlight');
+          button4c.classList.add('highlight');
+          setTimeout(() => {
+            ofbtns.classList.remove('highlight');
+            button4c.classList.remove('highlight');
+          }, 1500);
+        };
+        win();
+        check();
+      } else if (ofbtns.classList.contains('button2') && choiceNPC === 'button5') {
+        if (ofbtns.classList.contains('button2')) {
+          ofbtns.classList.add('highlight');
+          button5c.classList.add('highlight');
+          setTimeout(() => {
+            ofbtns.classList.remove('highlight');
+            button5c.classList.remove('highlight');
+          }, 1500);
+        };
+        draw();
+        check();
+      } else if (ofbtns.classList.contains('button2') && choiceNPC === 'button6') {
+        if (ofbtns.classList.contains('button2')) {
+          ofbtns.classList.add('highlight');
+          button6c.classList.add('highlight');
+          setTimeout(() => {
+            ofbtns.classList.remove('highlight');
+            button6c.classList.remove('highlight');
+          }, 1500);
+        };
+        lose();
+        check();
+      } else if (ofbtns.classList.contains('button3') && choiceNPC === 'button4') {
+        if (ofbtns.classList.contains('button3')) {
+          ofbtns.classList.add('highlight');
+          button4c.classList.add('highlight');
+          setTimeout(() => {
+            ofbtns.classList.remove('highlight');
+            button4c.classList.remove('highlight');
+          }, 1500);
+        };
+        lose();
+        check();
+      } else if (ofbtns.classList.contains('button3') && choiceNPC === 'button5') {
+        if (ofbtns.classList.contains('button3')) {
+          ofbtns.classList.add('highlight');
+          button5c.classList.add('highlight');
+          setTimeout(() => {
+            ofbtns.classList.remove('highlight');
+            button5c.classList.remove('highlight');
+          }, 1500);
+        };
+        win();
+        check();
+      } else if (ofbtns.classList.contains('button3') && choiceNPC === 'button6') {
+        if (ofbtns.classList.contains('button3')) {
+          ofbtns.classList.add('highlight');
+          button6c.classList.add('highlight');
+          setTimeout(() => {
+            ofbtns.classList.remove('highlight');
+            button6c.classList.remove('highlight');
+          }, 1500);
+        };
+        draw();
+        check();
+        };
+      });
+    });
+  };
+
+match();
+
+function restart() {
+  setTimeout(() => {
+    rText.textContent = `Restarting game...`;
+  }, 3000);
+  setTimeout(() => {
+  window.location.reload();
+  }, 5000);
+};
